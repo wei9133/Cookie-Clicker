@@ -1,75 +1,68 @@
-# Cookie Clicker Ultimate Automation (v8.9.2)
-
-![Version](https://img.shields.io/badge/version-v8.9.2-blue) ![Game](https://img.shields.io/badge/Game-Cookie%20Clicker-orange)
+# Cookie Clicker Ultimate Automation (v8.9.6.2)
+**Version Game**
 
 ## 📖 專案簡介 (Overview)
+這是一個針對《Cookie Clicker》開發的旗艦級自動化腳本。本專案不僅僅是連點器，更是一套完整的「遊戲託管系統」，旨在接管遊戲後期的複雜策略管理（如花園變異排程、股市操盤、Godzamok 戰術連擊）。
 
-這是一個針對《Cookie Clicker》開發的高階自動化腳本。不同於一般的連點器，本腳本旨在接管遊戲後期的複雜策略管理（如花園突變、股票交易、Godzamok 連擊），並引入了多重安全機制以防止自動化邏輯導致的資源誤損。
-
-**v8.9.2 版本** 引入了 **「戰鬥狀態紀律 (Combat State Discipline)」** 邏輯，大幅優化了在爆發期（如 Dragonflight, Click Frenzy）的 CPU 資源分配與資金保護。
-
----
+**v8.9.6+ 系列更新** 重點在於「智慧化決策」與「穩定性強化」。引入了全新的 **Smart Buy (智慧回本策略)**、**Fortune Ticker (幸運跑馬燈自動點擊)**，並針對季節切換邏輯進行了底層代碼硬化，徹底杜絕因網路延遲導致的無限購買迴圈。
 
 ## 🚀 核心功能 (Core Features)
 
-### 🔥 v8.9.2 新增功能：戰鬥狀態紀律 (Combat Discipline)
-為了應對遊戲後期的極限操作，v8.9.2 引入了全局戰鬥狀態判定 (`isCombatState`)：
-*   **爆發期偵測**：當偵測到高倍率 Buff（如 `Dragonflight`, `Click Frenzy`, `Cursed Finger` 或 CpS/Click 倍率 > 1）時，系統判定為「戰鬥狀態」。
-*   **資源讓渡**：在戰鬥狀態下，腳本會**自動暫停**低優先級的後勤工作（股市交易、季節切換、科技研發）。
-*   **目的**：
-    1.  **釋放 CPU 運算力**：確保瀏覽器能全速處理點擊與 Godzamok 邏輯，減少卡頓。
-    2.  **資金保護**：防止在需要大量資金進行 Godzamok 買回 (Buyback) 的關鍵時刻，資金被股市或科技研發消耗。
-
----
+### 🔥 v8.9.6 新增亮點：智慧決策與介面優化
+為了提升掛機效率與操作彈性，最新版本引入了以下核心改進：
+*   **智慧購買策略 (Smart Strategy / CPP)**：不再盲目購買最便宜或最貴的建築。系統現在會計算 **CPP (Cost Per Production)**，優先購買回本最快（CP值最高）的建築。
+*   **股市一鍵清倉 (Liquidate Button)**：在銀行介面新增「📉 清倉」按鈕，允許玩家在急需現金（如準備重置遊戲或發動大規模戰術）時，一鍵賣出所有持股變現。
+*   **幸運跑馬燈 (Fortune Ticker)**：(v8.9.5) 自動偵測並點擊綠色的新聞跑馬燈，確保不會錯過任何幸運升級 (Fortune Upgrades)。
+*   **操作日誌升級 (Action Log UI)**：日誌面板現在支援動態高度調整與 Flexbox 佈局，讓長期掛機的監控更加舒適。
 
 ### 🌿 花園管理系統 (Garden Manager)
 *   **藍圖編輯器 (Blueprint Editor)**：
-    *   內建 GUI，支援視覺化編輯與儲存陣型。
-    *   支援多組存檔 (Profiles) 與群組管理，方便切換不同策略。
-    *   提供「未解鎖種子」的視覺提示 (🔒) 與價格預覽。
+    *   內建視覺化 GUI，支援點選配置陣型。
+    *   支援多組存檔 (Profiles) 與群組管理，可記憶多套種植策略。
+    *   **智慧防呆**：提供「未解鎖種子」的視覺提示 (🔒) 與價格預覽，防止規劃了卻買不起的窘境。
 *   **自動化耕種**：
-    *   **突變模式**：自動收割成熟植物，保留未成熟變異株。
-    *   **聰明除草 (Smart Weed)**：自動鏟除有害雜草，但會**智慧保留**尚未解鎖圖鑑的新品種真菌/雜草 (v8.9.1 優化)。
-*   **介面優化**：控制面板採用嵌入式設計，固定於泥土區右側，不再受視窗縮放影響位置。
+    *   **突變模式 (Mutation)**：自動收割成熟植物，並針對新品種 (紫框) 增加 +1 tick 的收割緩衝，確保種子掉落率。
+    *   **聰明除草 (Smart Weed)**：自動鏟除有害雜草，但會智慧識別並保留尚未解鎖圖鑑的新品種真菌。
+*   **嵌入式控制台**：控制面板可最小化並嵌入至遊戲介面右側，不佔用畫面空間。
 
 ### ⚔️ 進階策略模組 (Advanced Strategy)
-*   **Pantheon (Godzamok)**：
-    *   **戰術核彈 (Tactical Nuke)**：一鍵 (預設 `F9`) 賣出指定建築觸發 Buff，並支援快速買回 (`F10`)。
-    *   **安全鎖 (Safety Lock)**：v8.9.1 新增防競態條件 (Anti-Race Condition) 保護，防止因連點或網路延遲導致的邏輯衝突。
-*   **建築上限管理 (Building Caps) (v8.9.0+)**：
-    *   移除了舊版寫死的 Wizard Tower 上限，現在可於「進階」面板針對**每一種建築**單獨設定購買上限（-1 為無限）。
-    *   這對於控制 Wizard Tower 的魔力上限或 Godzamok 的庫存量至關重要。
-*   **魔法賭徒 (Gambler)**：自動判斷 Buff 狀態，利用命運之手 (Hand of Fate) 進行連擊賭注。
-*   **股市 (Stock Market)**：基於演算法的低買高賣自動交易 (戰鬥狀態下會自動暫停)。
+*   **Pantheon (Godzamok 戰術)**：
+    *   **戰術核彈 (Tactical Nuke)**：一鍵 (預設 `^+F9`) 賣出指定建築 (如農場) 觸發 Buff，並支援快速買回。
+    *   **獨立補貨設定 (Independent Restock)**：(v8.9.4) 「賣出數量」與「補貨數量」現在分離設定，允許賣出 500 座但只補貨 100 座，適應不同的庫存策略。
+    *   **建築上限整合**：補貨邏輯已整合建築上限 (Building Cap)，防止溢出浪費。
+*   **戰鬥狀態紀律 (Combat Discipline)**：
+    *   當偵測到爆發期（如 Dragonflight, Click Frenzy），系統會自動暫停季節切換、股市交易與科技研發，將 CPU 資源與資金全部讓渡給點擊輸出。
+*   **魔法賭徒 (Gambler)**：自動判斷當前 Buff 狀態，利用魔法塔的「命運之手」進行連擊賭注，並具備紅綠燈視覺提示。
 
 ### 🛡️ 安全防護機制 (Safety Nets)
-*   **季節模糊緩衝 (Ambiguity Buffer)**：啟動初期或季節切換時強制阻斷「長者誓約」購買，防止因遊戲載入延遲導致誤殺皺紋蟲。
+*   **季節硬化防護 (Season Hardening)**：
+    *   (v8.9.6.2) 實裝靜態黑名單與嚴格計數協議 (Strict Count Protocol)，防止在網路延遲或高負載下，腳本誤判季節狀態而導致無限重複購買季節開關。
 *   **資金鎖定 (Spending Lock)**：
     *   在執行花園補種或 Godzamok 戰術時，自動鎖定其他支出。
-    *   可手動開啟存錢模式 (Saving Mode)，停止購買建築與升級。
+    *   **存錢模式 (Saving Mode)**：可手動開啟，停止一切建築與升級購買，專注累積庫存。
+*   **防重入保護 (Anti-Reentrancy)**：防止因連點熱鍵導致的邏輯衝突 (Race Condition)。
 
 ### ⚙️ 基礎自動化 (Essentials)
 *   **智能點擊**：自動點擊大餅乾、黃金餅乾、馴鹿。
-*   **自動購買**：基於 CpS 權重或價格策略自動購買升級與建築。
+*   **自動購買**：支援 Smart (推薦)、Cheapest、Expensive 三種策略。
 *   **皺紋蟲管理**：自動戳破（一般模式）或保護（打寶模式/閃光皺紋蟲）。
-
----
+*   **糖塊收割**：自動判斷糖塊成熟度與類型（成熟/雙倍/稀有）進行收割，並防止誤點肉色糖塊。
 
 ## 🛠️ 安裝與使用 (Installation)
 
-1. 安裝瀏覽器擴充功能：[Tampermonkey](https://www.tampermonkey.net/)。
-2. 點擊安裝腳本或將代碼複製到新腳本中。
-3. 進入遊戲，腳本將自動加載並顯示控制面板。
-4. **快捷鍵**：
-    *   `F8`：全局開關 (Pause/Resume)
-    *   `Ctrl+Shift+F9` (預設)：Godzamok 戰術核彈 (全賣)
-    *   `F10` (預設)：Godzamok 快速補貨
+1.  安裝瀏覽器擴充功能：**Tampermonkey** 或 **Violentmonkey**。
+2.  點擊安裝腳本或將代碼複製到新腳本中。
+3.  進入遊戲 (`https://orteil.dashnet.org/cookieclicker/`)，腳本將自動加載並顯示控制面板。
+
+### ⌨️ 快捷鍵 (Hotkeys)
+*   `F8`：**全局開關 (Master Switch)** - 暫停/恢復所有自動化。
+*   `Ctrl` + `Shift` + `F9` (預設)：**Godzamok 戰術核彈** - 賣出建築觸發 Buff。
+*   `F10` (預設)：**Godzamok 快速補貨** - 買回建築。
+*   `Alt` + `Click` (遊戲內功能)：部分面板支援拖透過標題列曳移動。
 
 ## 📝 更新日誌 (Changelog Highlights)
-
+*   **v8.9.6.x**: 實裝季節 ID 硬化防護；新增股市一鍵清倉；Action Log 支援動態高度。
+*   **v8.9.5**: 新增 Fortune Cookie Ticker 自動點擊；優化新品種收割邏輯。
+*   **v8.9.4**: Godzamok 補貨數量獨立設定；季節模組實裝嚴格計數協議。
 *   **v8.9.2**: 新增戰鬥狀態紀律 (Combat Discipline)，優化爆發期效能。
-*   **v8.9.1**: 修正 Godzamok 競態條件；優化花園除草邏輯；解除巫師塔硬上限。
 *   **v8.9.0**: UI 重構，建築上限設定遷移至進階面板。
-
----
-*Disclaimer: This script is for educational purposes only.*
