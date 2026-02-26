@@ -1009,7 +1009,6 @@ createControlPanel: function() {
                                     <label><input type="checkbox" id="chk-season" ${Config.Flags.Season?'checked':''}> 🍂 季節管理</label>
                                     <label><input type="checkbox" id="chk-santa" ${Config.Flags.Santa?'checked':''}> 🎅 聖誕老人進化</label>
                                     <label><input type="checkbox" id="chk-dragon" ${Config.Flags.DragonAura?'checked':''}> 🐲 智慧巨龍光環 (Slot2)</label>
-                                    <label><input type="checkbox" id="chk-magic-monitor" ${Config.Flags.ShowMagicMonitor?'checked':''}> 🔮 奧術戰術面板</label>
                                 </div>
                                 <div style="margin-top:10px; padding-top:10px; border-top:1px dashed #bcd; display:block;">
                                     <label style="font-weight:bold; color:#01579b;">
